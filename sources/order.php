@@ -23,7 +23,7 @@ $payments_info = $cache->get("select A.id as id, A.name$lang as name$lang, B.des
 
 if (!empty($_POST['submit-cart'])) {
     /* Check order */
-    if (empty($_SESSION['owner']['cart'])) {
+    if (empty($_SESSION['cart'][$config['website']['sectors']])) {
         $func->transfer("Đơn hàng không hợp lệ. Vui lòng thử lại sau.", $configBase, false);
     }
 
@@ -38,7 +38,6 @@ if (!empty($_POST['submit-cart'])) {
         $fullname = (!empty($dataOrder['fullname'])) ? htmlspecialchars($dataOrder['fullname']) : '';
         $email = (!empty($dataOrder['email'])) ? htmlspecialchars($dataOrder['email']) : '';
         $phone = (!empty($dataOrder['phone'])) ? htmlspecialchars($dataOrder['phone']) : '';
-        var_dump($phone);
         /* Place */
         $city = (!empty($dataOrder['city'])) ? htmlspecialchars($dataOrder['city']) : 0;
         $district = (!empty($dataOrder['district'])) ? htmlspecialchars($dataOrder['district']) : 0;
@@ -162,8 +161,6 @@ if (!empty($_POST['submit-cart'])) {
     }
 
     $dataOrderMain['order_detail']=json_encode($dataOrderMain['order_detail'],JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE);
-    $func->dump($dataOrder);
-    $func->dump($dataOrderMain);die;
     /* Save order main */
     if (!$d->insert('order', $dataOrderMain)) {
         $func->transfer("Xử lý đơn hàng có vấn đề. Vui lòng thử lại sau.", $configBase . 'gio-hang', false);
