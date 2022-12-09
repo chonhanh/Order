@@ -207,6 +207,8 @@ if (!empty($_POST['submit-cart'])) {
             $d->rawQuery("delete from #_order where id = ?", array($idNewOrder));
             $func->transfer("Xử lý đơn hàng có vấn đề. Vui lòng thử lại sau.", $configBase . 'gio-hang', false);
         }
+    }
+    foreach ($_SESSION['cart'][$config['website']['sectors']] as $k_group_cart => $v_group_cart) {
         /* Check owner */
         $selects = array();
         if ($v_group_cart['infos']['type'] == 'shop') {
@@ -332,7 +334,6 @@ if (!empty($_POST['submit-cart'])) {
         $file = '';
         $emailer->send("customer", $arrayEmail, $subject, $message, $file);
     }
-
     /* Send all order information for customer */
     /* Defaults attributes email */
     $emailDefaultAttrs = $emailer->defaultAttrs();
