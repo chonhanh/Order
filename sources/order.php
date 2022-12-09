@@ -5,8 +5,6 @@ if (!defined('SOURCES')) die("Error");
 $isLogin = $func->getMember('active');
 $idMember = $func->getMember('id');
 
-echo 'xxxxxx';
-
 /* Check login */
 if (empty($isLogin)) {
     $urlLogin = $configBase . 'account/dang-nhap';
