@@ -211,9 +211,6 @@ function deleteMan()
             /* Delete order main */
             $d->rawQuery("delete from #_order_group where id = ?", array($row['id']));
 
-            /* Delete order detail */
-            $d->rawQuery("delete from #_order_detail where id_group = ?", array($row['id']));
-
             /* Sum price order group */
             $orderMain = $d->rawQueryOne("select sum(total_price) from #_order_group where id_order = ?", array($row['id_order']));
 

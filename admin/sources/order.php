@@ -254,22 +254,10 @@ function deleteMan()
         if (!empty($row)) {
             /* Delete order main */
             $d->rawQuery("delete from #_order where id = ?", array($row['id']));
-
-            /* Delete order info */
-            $d->rawQuery("delete from #_order_info where id_order = ?", array($row['id']));
-
             /* Get order group */
             $orderGroup = $d->rawQuery("select id from #_order_group where id_order = ?", array($row['id']));
-
             /* Delete order group */
             $d->rawQuery("delete from #_order_group where id_order = ?", array($row['id']));
-
-            /* Delete order detail */
-            if (!empty($orderGroup)) {
-                foreach ($orderGroup as $v_orderGroup) {
-                    $d->rawQuery("delete from #_order_detail where id_group = ?", array($v_orderGroup['id']));
-                }
-            }
 
             $func->transfer("Xóa dữ liệu thành công", "index.php?com=order&act=man&p=" . $curPage);
         } else {
