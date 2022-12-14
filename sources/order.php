@@ -171,6 +171,7 @@ if (!empty($_POST['submit-cart'])) {
     /* Send each order information for each owner (shop/personal) */
     foreach ($_SESSION['cart'][$config['website']['sectors']] as $k_group_cart => $v_group_cart) {
         $dataOrderGroup = array();
+        $dataOrderGroup['id_user'] = (!empty($idMember)) ? $idMember : 0;
         $dataOrderGroup['id_order'] = $idNewOrder;
         $dataOrderGroup['id_' . $v_group_cart['infos']['type']] = $v_group_cart['infos']['id'];
         $dataOrderGroup['sector_prefix'] = ($v_group_cart['infos']['type'] == 'shop') ? $v_group_cart['infos']['prefix'] : '';
